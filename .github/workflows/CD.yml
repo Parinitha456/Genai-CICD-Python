@@ -6,8 +6,9 @@ on:
       - manual
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: 
+      - self-hosted
+      - label-1
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
