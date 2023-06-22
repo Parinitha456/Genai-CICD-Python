@@ -29,7 +29,6 @@ jobs:
           pip install pytest  # Install pytest
           pip --no-cache-dir install -r requirements.txt
         
-
       - name: Run Unit Tests
         run: pytest
 
