@@ -1,0 +1,49 @@
+name: CD Pipeline
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - manualTrigger
+env:
+  SONAR_TOKEN: '75621cba6337eff300a0b42e8d68eb9d4cdbe709'
+  SONAR_HOST_URL: 'http://brillioonesonar.eastus.cloudapp.azure.com:9000'
+  
+jobs:
+  build:
+    runs-on: 
+      - self-hosted
+      - label-1
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install Flask-API
+          pip --no-cache-dir install -r requirements.txt
+        
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v1
+        with:
+          sonar-token: ${{ env.SONAR_TOKEN }}
+          project-key: GenAISonarQubeTesting
+          project-name: GenAISonarQubeTesting
+          project-version: 1.0
+          sources: .
+          exclusions: tests/**
+          # Set other analysis parameters as required
+
+      - name: Run Azure CLI
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch --destination gen-ai --source ./ --connection-string "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=genaiartifacts;AccountKey=MhFql0ZJvV7pkVaIv+hz7YQXkQU1WHQqpFF6lBrHnE0FsexIGnEIHkhR542oTwbM7y5Hd4IuUXvh+AStIv3LNw==;BlobEndpoint=https://genaiartifacts.blob.core.windows.net/;FileEndpoint=https://genaiartifacts.file.core.windows.net/;QueueEndpoint=https://genaiartifacts.queue.core.windows.net/;TableEndpoint=https://genaiartifacts.table.core.windows.net/"  
+      
+      - name: Docker-compose UP
+        run: docker-compose up -d
