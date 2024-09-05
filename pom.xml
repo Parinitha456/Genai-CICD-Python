@@ -8,7 +8,7 @@
         <version>3.0.0</version>
         <executions>
           <execution>
-            <phase>test</phase> <!-- Make this run during the test phase -->
+            <phase>test</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -19,9 +19,7 @@
           <arguments>
             <argument>-m</argument>
             <argument>unittest</argument>
-            <argument>discover</argument>
-            <argument>-s</argument>
-            <argument>test_main</argument> <!-- Your test folder or file -->
+            <argument>tests.test_main</argument> <!-- Module path for test file without .py extension -->
           </arguments>
         </configuration>
       </plugin>
