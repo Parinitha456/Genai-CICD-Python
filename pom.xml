@@ -1,0 +1,30 @@
+<project>
+  <!-- Other project information -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>test</phase> <!-- Make this run during the test phase -->
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>python3</executable>
+          <arguments>
+            <argument>-m</argument>
+            <argument>unittest</argument>
+            <argument>discover</argument>
+            <argument>-s</argument>
+            <argument>test_main</argument> <!-- Your test folder or file -->
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
