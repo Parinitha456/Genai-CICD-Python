@@ -1,3 +1,22 @@
+# [tool.poetry]
+# name = "genai-cicd-python"
+# version = "0.1.0"
+# description = "A Python project for CI/CD using Opsera"
+# authors = ["Pari <parinithanikhilgowda@gmail.com>"]
+# license = "MIT"
+
+# [tool.poetry.dependencies]
+# python = "^3.8"
+# # Add your project dependencies here
+# flask = "^2.0.1"
+
+# [tool.poetry.dev-dependencies]
+# pytest = "^6.2.4"
+
+# [build-system]
+# requires = ["poetry-core>=1.0.0"]
+# build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "genai-cicd-python"
 version = "0.1.0"
@@ -7,12 +26,15 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-# Add your project dependencies here
 flask = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 
+[tool.poetry.packages]
+include = ["genai_cicd_python"]
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
